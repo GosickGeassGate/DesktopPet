@@ -52,18 +52,20 @@ minSDK：23
 
 ##### 文件分布：
 
+* AndroidManifest.xml（修改）
+
 * java
   * Package name
-    * PrefActivity.java
-    * SettingFragment.java
+    * PrefActivity.java（新增）
+    * SettingFragment.java（新增）
 
 * res
   * layout
-    * activity_pref.xml
+    * activity_pref.xml（新增）
   * values
-    * arrays.xml
+    * arrays.xml（新增）
   * xml
-    * preferences.xml
+    * preferences.xml（新增）
 
 ##### 实现功能：
 

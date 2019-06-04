@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
+    <PreferenceCategory android:title="外观设置">
+        <EditTextPreference
+            android:key="name_key"
+            android:title="昵称"
+            android:defaultValue="NoName"
+            android:selectAllOnFocus="true" />
+        <ListPreference
+            android:key="sex_key"
+            android:title="性别"
+            android:defaultValue="male"
+            android:entries="@array/sex_pref"
+            android:entryValues="@array/sex_pref" />
+        <ListPreference
+            android:key="type_key"
+            android:title="类型"
+            android:defaultValue="type1"
+            android:entries="@array/type_pref"
+            android:entryValues="@array/type_pref" />
+        <ListPreference
+            android:key="emotion_key"
+            android:title="表情"
+            android:defaultValue="emotion1"
+            android:entries="@array/emotion_pref"
+            android:entryValues="@array/emotion_pref" />
+    </PreferenceCategory>
+    <PreferenceCategory android:title="功能设置">
+        <CheckBoxPreference
+            android:key="AutoStart_key"
+            android:title="是否允许随机启动"
+            android:summary="是"
+            android:defaultValue="true" />
+        <CheckBoxPreference
+            android:key="AlarmClock_key"
+            android:title="是否开启闹钟提醒"
+            android:summary="是"
+            android:defaultValue="true" />
+        <CheckBoxPreference
+            android:key="WeChatNotify_key"
+            android:title="是否接收微信通知"
+            android:summary="是"
+            android:defaultValue="true" />
+    </PreferenceCategory>
+</PreferenceScreen>
