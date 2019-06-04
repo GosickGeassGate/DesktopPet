@@ -9,38 +9,38 @@
 - 自动贴边，跟随手指移动
   - 拖拽：TouchListener
 
-
-
 #### 姚振杰
 
 - 定义属性（15week）
 - 随机启动
   - BroadcastReceiver
 
-
-
 #### 叶梓豪
 
 - 闹钟提醒
   - AlarmManager+BroadcastReceiver
-
-
 
 #### 杨滨好
 
 - 蓝牙配对
   - BlueAdapter+BroadcastReceiver
 
-
-
 #### 詹建洲
 
 - 微信通知
   - NotificationListenerService
 
-
-
 <!--其余未注明时间的工作尽量在16week前完成-->
+
+
+
+-------
+
+### 版本
+
+compileSDK：27
+
+minSDK：23
 
 
 
