@@ -46,11 +46,10 @@ minSDK：24
 
 ------
 
-### 进度
 
-#### 2019/6/5 version 1.0（已整合2019/6/4）
+### 2019/6/5 version 1.0（已整合2019/6/4）
 
-##### 更新说明：
+#### 更新说明：
 
 两年前的某个学校的老师布置了一模一样的作业。我无意间发现了这份源码并分享给大家。希望能够帮到大家。
 
@@ -60,7 +59,7 @@ https://github.com/frankliu3028/Desktopet/tree/develop
 
 主页面的UI需在后期会做一些修改，避免查重。现在暂时用着。
 
-##### 主要文件分布：
+#### 主要文件分布：
 * java
   * Package name
     * activity
@@ -71,16 +70,16 @@ https://github.com/frankliu3028/Desktopet/tree/develop
     * util
     * view
 
-##### 实现功能：
+#### 实现功能：
 
 * 基本框架
 
 * 悬浮桌面，动效表情，自动贴边，跟随手指移动
 
+------
+### 2019/6/4 
 
-#### 2019/6/4 
-
-##### 文件分布：
+#### 文件分布：
 
 * AndroidManifest.xml（修改）
 
@@ -97,7 +96,7 @@ https://github.com/frankliu3028/Desktopet/tree/develop
   * xml
     * preferences.xml（新增）
 
-##### 实现功能：
+#### 实现功能：
 
 * 设置属性：
   * 外观属性
@@ -110,7 +109,7 @@ https://github.com/frankliu3028/Desktopet/tree/develop
     - 允许闹钟提醒
     - 允许微信通知
 
-##### 对外接口：
+#### 对外接口：
 
 ```Java
 // 获取昵称
