@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.example.mypet.view.SemiringLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    app:radius="80dp"
+    app:side="left"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    <Button
+        android:id="@+id/petmenu_home_btn"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:background="@drawable/bg_btn_home"/>
+    <Button
+        android:id="@+id/petmenu_alarm_btn"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:background="@drawable/bg_btn_alarm"/>
+    <Button
+        android:id="@+id/petmenu_setting_btn"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:background="@drawable/bg_btn_setting"/>
+    <Button
+        android:id="@+id/petmenu_bluetooth_btn"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:background="@drawable/bg_btn_bluetooth"/>
+    <Button
+        android:id="@+id/petmenu_cancel_btn"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:background="@drawable/bg_btn_cancel"/>
+    <Button
+        android:id="@+id/petmenu_close_btn"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:background="@drawable/bg_btn_close"/>
+
+
+</com.example.mypet.view.SemiringLayout>
