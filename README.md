@@ -38,15 +38,45 @@
 
 ### 版本
 
-compileSDK：27
+compileSDK：26或以上
 
-minSDK：23
+minSDK：24
 
 
 
 ------
 
 ### 进度
+
+#### 2019/6/5
+
+##### 更新说明：
+
+两年前的某个学校的老师布置了一模一样的作业。我无意间发现了这份源码并分享给大家。希望能够帮到大家。
+
+https://github.com/frankliu3028/Desktopet/tree/develop
+
+我借鉴了一些代码，因为要快点搭好框架开始分工。不过源码有很多bug，所以大家不要直接copy。合则用，不合则弃。
+
+主页面的UI需在后期会做一些修改，避免查重。现在暂时用着。
+
+##### 主要文件分布：
+* java
+  * Package name
+    * activity
+      * MainActivity.java（主界面，分工可以从onClick函数开始操作）
+    * control
+    * model
+    * service
+    * util
+    * view
+
+##### 实现功能：
+
+* 基本框架
+
+* 悬浮桌面，动效表情，自动贴边，跟随手指移动
+
 
 #### 2019/6/4 
 
