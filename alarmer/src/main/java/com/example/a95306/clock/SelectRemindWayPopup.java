@@ -10,6 +10,8 @@ import android.view.WindowManager;
 import android.widget.PopupWindow;
 import android.widget.TextView;
 
+import static android.R.attr.id;
+
 /**
  * Created by 95306 on 2019-06-16.
  */
@@ -63,15 +65,11 @@ public class SelectRemindWayPopup implements View.OnClickListener {
 
     @Override
     public void onClick(View v) {
-        switch (v.getId()) {
-            case R.id.tv_drugway_1:
-                selectRemindWayPopupListener.obtainMessage(0);
-                break;
-            case R.id.tv_drugway_2:
-                selectRemindWayPopupListener.obtainMessage(1);
-                break;
-            default:
-                break;
+        if(v.getId()==R.id.tv_drugway_1){
+            selectRemindWayPopupListener.obtainMessage(0);
+        }
+        else if(v.getId()==R.id.tv_drugway_2){
+            selectRemindWayPopupListener.obtainMessage(1);
         }
         dismiss();
 

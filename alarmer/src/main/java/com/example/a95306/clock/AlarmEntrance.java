@@ -9,8 +9,8 @@ import android.support.v7.app.AppCompatActivity;
 
 public class AlarmEntrance  extends  AppCompatActivity {
     public  static  String ACTION="com.yzh.alarm";
-    public  void startAlarm(){
+    public  Intent startAlarm(){
         Intent intent=new Intent(ACTION);
-        startActivity(intent);
+        return intent;
     }
 }

@@ -3,6 +3,7 @@ package com.example.mypet.activity;
 import android.animation.Animator;
 import android.animation.AnimatorSet;
 import android.animation.ObjectAnimator;
+import android.content.Context;
 import android.content.Intent;
 import android.graphics.drawable.Drawable;
 import android.os.Build;
@@ -36,7 +37,6 @@ public class MainActivity extends AppCompatActivity{
 	private ImageButton bluetoothBtn;
 	private ImageButton settingBtn;
 	private ImageButton aboutBtn;
-
 	private boolean petBtnState = false;
 
 	private Handler handler = new Handler();
@@ -106,7 +106,8 @@ public class MainActivity extends AppCompatActivity{
 		alarmBtn.setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View v) {
-				Intent intent=alarmEntrance.startAlarm(this);
+				AlarmEntrance alarmEntrance=new AlarmEntrance();
+				Intent intent=alarmEntrance.startAlarm();
 				startActivity(intent);
 			}
 		});
