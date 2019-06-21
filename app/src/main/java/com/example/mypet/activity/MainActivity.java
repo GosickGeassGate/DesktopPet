@@ -14,6 +14,7 @@ import android.view.View;
 import android.view.animation.AccelerateInterpolator;
 import android.widget.ImageButton;
 import android.widget.Toast;
+import com.example.a95306.clock.AlarmEntrance;
 
 import com.example.mypet.R;
 import com.example.mypet.control.MyWindowManager;
@@ -105,14 +106,14 @@ public class MainActivity extends AppCompatActivity{
 		alarmBtn.setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View v) {
-
+				Intent intent=alarmEntrance.startAlarm(this);
+				startActivity(intent);
 			}
 		});
 
 		bluetoothBtn.setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View v) {
-
 			}
 		});
 

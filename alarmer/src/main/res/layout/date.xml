@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:orientation="vertical"
+    android:id="@+id/date"
+    android:padding="10dp"
+
+    android:layout_height="wrap_content">
+
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="match_parent"
+        android:orientation="horizontal"
+        android:padding="10dp"
+        android:layout_height="wrap_content">
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:textSize="15sp"
+        android:layout_height="wrap_content"
+        android:gravity="left"
+        android:text="重复" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/date_selected"
+            android:textSize="15sp"
+            android:text=""
+            android:gravity="end"
+            />
+
+    </LinearLayout>
+
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="match_parent"
+        android:orientation="horizontal"
+        android:padding="10dp"
+        android:layout_height="50dp">
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="日"
+            android:textStyle="bold"
+            android:textSize="20dp"
+            android:layout_weight="1"
+            android:id="@+id/Sun"
+            android:gravity="center"
+            />
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textSize="20dp"
+            android:text="一"
+            android:textStyle="bold"
+            android:layout_weight="1"
+            android:id="@+id/Mon"
+            android:gravity="center"
+            />
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="二"
+            android:textStyle="bold"
+            android:layout_weight="1"
+            android:textSize="20dp"
+            android:gravity="center"
+            android:id="@+id/Tue"
+            />
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="三"
+            android:textStyle="bold"
+            android:layout_weight="1"
+            android:textSize="20dp"
+            android:id="@+id/Wed"
+            android:gravity="center"
+            />
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textSize="20dp"
+            android:text="四"
+            android:textStyle="bold"
+            android:layout_weight="1"
+            android:id="@+id/Thu"
+            android:gravity="center"
+            />
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textSize="20dp"
+            android:text="五"
+            android:textStyle="bold"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:id="@+id/Fri"
+            />
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textSize="20dp"
+            android:text="六"
+            android:textStyle="bold"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:id="@+id/Sat"
+            />
+    </LinearLayout>
+
+
+</LinearLayout>
