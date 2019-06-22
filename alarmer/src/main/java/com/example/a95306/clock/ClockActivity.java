@@ -153,12 +153,9 @@ public class ClockActivity extends AppCompatActivity {
                 save();
             }
             else{
-                Intent home = new Intent(Intent.ACTION_MAIN);
-                home.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                home.addCategory(Intent.CATEGORY_HOME);
-                startActivity(home);
+                finish();
             }
-            return true;
+            return super.onOptionsItemSelected(item);
     }
 
     public void save(){
