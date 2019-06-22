@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.a95306.clock">
-
+    <application>
         <activity android:name=".ClockActivity">
             <intent-filter>
                 <action android:name="com.yzh.alarm"></action>
             </intent-filter>
         </activity>
-
+    </application>
 </manifest>

@@ -3,20 +3,19 @@ package com.example.mypet.activity;
 import android.animation.Animator;
 import android.animation.AnimatorSet;
 import android.animation.ObjectAnimator;
-import android.content.Context;
 import android.content.Intent;
 import android.graphics.drawable.Drawable;
 import android.os.Build;
+import android.os.Bundle;
 import android.os.Handler;
 import android.provider.Settings;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.view.View;
 import android.view.animation.AccelerateInterpolator;
 import android.widget.ImageButton;
 import android.widget.Toast;
-import com.example.a95306.clock.AlarmEntrance;
 
+import com.example.a95306.clock.AlarmEntrance;
 import com.example.mypet.R;
 import com.example.mypet.control.MyWindowManager;
 
@@ -107,7 +106,7 @@ public class MainActivity extends AppCompatActivity{
 			@Override
 			public void onClick(View v) {
 				AlarmEntrance alarmEntrance=new AlarmEntrance();
-				Intent intent=alarmEntrance.startAlarm();
+				Intent intent=alarmEntrance.startAlarm(MainActivity.this);
 				startActivity(intent);
 			}
 		});
