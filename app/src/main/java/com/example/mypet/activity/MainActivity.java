@@ -49,6 +49,18 @@ public class MainActivity extends AppCompatActivity{
 		findView();		//获取控件
 		initState();	//初始化状态
 		setListener();	//设置监听器
+
+//		try {
+//			Intent intent = getIntent();
+//			// 获取启动源信息，判断是否为自启动
+//			if (intent.getStringExtra("From").equals("BootCompletedBroadcastReceiver")) {
+//				petBtn.performClick();
+//				MainActivity.this.finish();
+//			}
+//		}
+//		catch (Exception e){
+//			e.printStackTrace();
+//		}
 	}
 
 	private void findView(){
