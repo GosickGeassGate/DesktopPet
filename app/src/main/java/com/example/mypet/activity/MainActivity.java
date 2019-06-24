@@ -51,6 +51,8 @@ public class MainActivity extends AppCompatActivity{
 		setListener();	//设置监听器
 	}
 
+
+
 	private void findView(){
 		petBtn = findViewById(R.id.pet_btn);
 		weChatBtn = findViewById(R.id.wechat_btn);
