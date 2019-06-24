@@ -59,8 +59,10 @@ public class Pet {
      */
     public static int theme;
 
-
     static {
+        name = SettingFragment.getName(MyApplication.getContext());
+        sex = SettingFragment.getSex(MyApplication.getContext());
+        theme = SettingFragment.getTheme(MyApplication.getContext());
     }
 
 }
