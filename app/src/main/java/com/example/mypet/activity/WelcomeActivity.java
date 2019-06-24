@@ -20,10 +20,6 @@ public class WelcomeActivity extends AppCompatActivity {
 		handler.postDelayed(new Runnable() {
 			@Override
 			public void run() {
-//				Intent intent = new Intent();
-//				intent.putExtra("From", "WelcomeActivity");	// 给MainActivity传递信息说明启动源
-//				intent.setClass(WelcomeActivity.this, MainActivity.class);
-//				startActivity(intent);
 				startActivity(new Intent(WelcomeActivity.this,MainActivity.class));
 				overridePendingTransition(R.anim.activity_in_anim, R.anim.activity_exit_anim);
 				WelcomeActivity.this.finish();

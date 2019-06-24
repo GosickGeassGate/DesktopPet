@@ -20,11 +20,6 @@ public class BootCompletedBroadcastReceiver extends BroadcastReceiver {
         Log.d("Boot:", "Completed. ");
 
         if (ACTION.equals(intent.getAction())) {
-//            Intent mainIntent = new Intent();
-//            mainIntent.putExtra("From", "BootCompletedBroadcastReceiver"); // 给MainActivity传递信息说明说明启动源（证明是自启动）
-//            mainIntent.setClass(context, MainActivity.class);
-//            mainIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-//            context.startActivity(mainIntent);
             MyWindowManager.createPetSmallWindow(MyApplication.getContext());
         }
     }
