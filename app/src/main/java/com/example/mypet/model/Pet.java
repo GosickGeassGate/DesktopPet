@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.SharedPreferences;
 
 import com.example.mypet.util.MyApplication;
+import com.example.mypet.util.SettingFragment;
 
 
 /**
@@ -54,40 +55,14 @@ public class Pet {
      */
     public static String sex;
     /**
-     * 主题
+     * 类型
      */
     public static int theme;
 
-
     static {
-        SharedPreferences sp = MyApplication.getContext().getSharedPreferences("pet", 0);
-        name = sp.getString("name", "UnKnown");
-        sex = sp.getString("sex", "UnKnown");
-        theme = sp.getInt("theme", 0);
+        name = SettingFragment.getName(MyApplication.getContext());
+        sex = SettingFragment.getSex(MyApplication.getContext());
+        theme = SettingFragment.getTheme(MyApplication.getContext());
     }
 
-
-
-
-
-    /**
-     * 将宠物当前的设置信息保存到preference文件中
-     *
-     * @param context
-     */
-    public static void saveSetting(Context context) {
-        SharedPreferences sp = context.getSharedPreferences("pet", 0);
-        SharedPreferences.Editor editor = sp.edit();
-        editor.putString("name", name);
-        editor.putString("sex", sex);
-        editor.putInt("theme", theme);
-        editor.commit();
-    }
-
-
-    /**
-     * 宠物设置改变时改变Pet中的参数
-     */
-    public static void onPetStatusChanged() {
-    }
 }

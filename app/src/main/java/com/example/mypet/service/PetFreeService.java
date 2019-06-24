@@ -9,6 +9,8 @@ import android.support.annotation.Nullable;
 
 import com.example.mypet.control.PetControl;
 import com.example.mypet.model.Pet;
+import com.example.mypet.util.MyApplication;
+import com.example.mypet.util.SettingFragment;
 
 import java.util.Timer;
 import java.util.TimerTask;
@@ -89,6 +91,7 @@ public class PetFreeService extends Service {
         @Override
         public void run() {
             //获取资源
+            Pet.theme = SettingFragment.getTheme(MyApplication.getContext());   // 更新主题
             final int freeResId= PetControl.getPetImageRes(Pet.theme,Pet.typeFree);
 
             handler.post(new Runnable() {
@@ -110,6 +113,7 @@ public class PetFreeService extends Service {
         @Override
         public void run() {
             //获取资源
+            Pet.theme = SettingFragment.getTheme(MyApplication.getContext());   // 更新主题
             final int stillResId=PetControl.getPetImageRes(Pet.theme,Pet.typeStill);
             handler.post(new Runnable() {
                 @Override

@@ -14,6 +14,7 @@ import android.widget.Button;
 import com.example.mypet.R;
 import com.example.mypet.activity.MainActivity;
 import com.example.mypet.util.MyApplication;
+import com.example.mypet.util.SettingFragment;
 import com.example.mypet.util.Utilities;
 import com.example.mypet.model.Pet;
 import com.example.mypet.view.PetMessageWindow;
@@ -96,7 +97,9 @@ public class MyWindowManager {
 			mWindowManager.addView(mPetWindowSmallView, mSmallLayoutParams);
 		}
 		isPetShow=true;
-		PetControl.displayPetMessage("hi~我是你的宠物"+ Pet.name);
+		Pet.name = SettingFragment.getName(MyApplication.getContext());	// 更新名字
+		Pet.sex = SettingFragment.getSex(MyApplication.getContext());	// 更新性别
+		PetControl.displayPetMessage("hi~我叫"+ Pet.name + "\n是一个" + (Pet.sex.equals("男") ? "可耐的男孩子~" : "漂酿的女孩子~"));
 	}
 
 	public static void createPetMenu(final Context context){

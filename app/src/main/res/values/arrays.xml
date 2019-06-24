@@ -1,13 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string-array name="sex_pref">
-        <item>male</item>
-        <item>female</item>
+        <item>男</item>
+        <item>女</item>
     </string-array>
     <string-array name="type_pref">
-        <item>type1</item>
-    </string-array>
-    <string-array name="emotion_pref">
-        <item>emotion1</item>
+        <item>影子</item>
+        <item>辛巴</item>
+        <item>阿狸</item>
     </string-array>
 </resources>
