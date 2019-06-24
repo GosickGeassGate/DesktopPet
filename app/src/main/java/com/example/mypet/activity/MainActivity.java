@@ -45,7 +45,6 @@ public class MainActivity extends AppCompatActivity{
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_main);
-
 		findView();		//获取控件
 		initState();	//初始化状态
 		setListener();	//设置监听器

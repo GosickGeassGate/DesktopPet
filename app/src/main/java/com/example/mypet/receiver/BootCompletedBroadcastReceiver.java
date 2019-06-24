@@ -17,8 +17,6 @@ public class BootCompletedBroadcastReceiver extends BroadcastReceiver {
     @Override
     public void onReceive(Context context, Intent intent){
         Toast.makeText(context, "自启动成功", Toast.LENGTH_LONG).show();
-        Log.d("Boot:", "Completed. ");
-
         if (ACTION.equals(intent.getAction())) {
             MyWindowManager.createPetSmallWindow(MyApplication.getContext());
         }
