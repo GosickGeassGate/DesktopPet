@@ -15,7 +15,6 @@ public class SettingFragment extends PreferenceFragment implements SharedPrefere
     private EditTextPreference namePref;
     private ListPreference sexPref;
     private ListPreference typePref;
-    private ListPreference emotionPref;
     private CheckBoxPreference autoStartPref;
     private CheckBoxPreference alarmClockPref;
     private CheckBoxPreference weChatNotifyPref;
@@ -28,7 +27,6 @@ public class SettingFragment extends PreferenceFragment implements SharedPrefere
         namePref = (EditTextPreference)findPreference("name_key");
         sexPref = (ListPreference)findPreference("sex_key");
         typePref = (ListPreference)findPreference("type_key");
-        emotionPref = (ListPreference)findPreference("emotion_key");
         autoStartPref = (CheckBoxPreference)findPreference("AutoStart_key");
         alarmClockPref = (CheckBoxPreference)findPreference("AlarmClock_key");
         weChatNotifyPref = (CheckBoxPreference)findPreference("WeChatNotify_key");
@@ -39,7 +37,7 @@ public class SettingFragment extends PreferenceFragment implements SharedPrefere
         super.onResume();
         // Setup the initial values
         SharedPreferences sharedPreferences = getPreferenceScreen().getSharedPreferences();
-        String[]keys = new String[]{"name_key", "sex_key", "type_key", "emotion_key", "AutoStart_key", "AlarmClock_key", "WeChatNotify_key"};
+        String[]keys = new String[]{"name_key", "sex_key", "type_key", "AutoStart_key", "AlarmClock_key", "WeChatNotify_key"};
         for(String key: keys){
             setSummary(sharedPreferences, key);
         }
@@ -63,21 +61,13 @@ public class SettingFragment extends PreferenceFragment implements SharedPrefere
     public void setSummary(SharedPreferences sharedPreferences, String key){
         switch(key){
             case "name_key":
-                namePref.setSummary(sharedPreferences.getString(key, "NoName"));
+                namePref.setSummary(sharedPreferences.getString(key, "无名"));
                 break;
             case "sex_key":
-                if(sharedPreferences.getString(key, "male").equals("male"))
-                    sexPref.setSummary("男");
-                else
-                    sexPref.setSummary("女");
+                sexPref.setSummary(sharedPreferences.getString(key, "男"));
                 break;
             case "type_key":
-                if(sharedPreferences.getString(key, "type1").equals("type1"))
-                    typePref.setSummary("type1");
-                break;
-            case "emotion_key":
-                if(sharedPreferences.getString(key, "emotion1").equals("emotion1"))
-                    emotionPref.setSummary("emotion1");
+                typePref.setSummary(sharedPreferences.getString(key, "影子"));
                 break;
             case "AutoStart_key":
                 autoStartPref.setSummary(sharedPreferences.getBoolean(key, true) ? "是" : "否");
@@ -96,25 +86,28 @@ public class SettingFragment extends PreferenceFragment implements SharedPrefere
     // 获取昵称
     public static String getName(Context mContext){
         SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(mContext);
-        return sharedPreferences.getString("name_key", "NoName");
+        return sharedPreferences.getString("name_key", "无名");
     }
 
     // 获取性别
     public static String getSex(Context mContext){
         SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(mContext);
-        return sharedPreferences.getString("sex_key", "male");
+        return sharedPreferences.getString("sex_key", "男");
     }
 
-    // 获取类型
-    public static String getType(Context mContext){
+    // 获取主题（根据宠物类型）
+    public static int getTheme(Context mContext){
         SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(mContext);
-        return sharedPreferences.getString("type_key", "type1");
-    }
-
-    // 获取表情
-    public static String getEmotion(Context mContext){
-        SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(mContext);
-        return sharedPreferences.getString("emotion_key", "emotion1");
+        switch (sharedPreferences.getString("type_key", "影子")){
+            case "影子":
+                return 0;
+            case "辛巴":
+                return 1;
+            case "阿狸":
+                return 2;
+            default:
+                return 0;
+        }
     }
 
     // 是否允许随机启动

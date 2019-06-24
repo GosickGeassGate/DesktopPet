@@ -4,26 +4,20 @@
         <EditTextPreference
             android:key="name_key"
             android:title="昵称"
-            android:defaultValue="NoName"
+            android:defaultValue="无名"
             android:selectAllOnFocus="true" />
         <ListPreference
             android:key="sex_key"
             android:title="性别"
-            android:defaultValue="male"
+            android:defaultValue="男"
             android:entries="@array/sex_pref"
             android:entryValues="@array/sex_pref" />
         <ListPreference
             android:key="type_key"
             android:title="类型"
-            android:defaultValue="type1"
+            android:defaultValue="影子"
             android:entries="@array/type_pref"
             android:entryValues="@array/type_pref" />
-        <ListPreference
-            android:key="emotion_key"
-            android:title="表情"
-            android:defaultValue="emotion1"
-            android:entries="@array/emotion_pref"
-            android:entryValues="@array/emotion_pref" />
     </PreferenceCategory>
     <PreferenceCategory android:title="功能设置">
         <CheckBoxPreference

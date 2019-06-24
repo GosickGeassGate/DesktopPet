@@ -30,14 +30,6 @@ public class PrefActivity extends AppCompatActivity {
 		fg.setArguments(bundle);
 		fTransaction.add(R.id.content, fg);
 		fTransaction.commit();
-
-		Log.d("name", SettingFragment.getName(this));
-		Log.d("sex", SettingFragment.getSex(this));
-		Log.d("type", SettingFragment.getType(this));
-		Log.d("emotion", SettingFragment.getEmotion(this));
-		Log.d("autoStart", SettingFragment.autoStartAdmit(this) + "");
-		Log.d("alarmClock", SettingFragment.alarmClockAdmit(this) + "");
-		Log.d("weChatNotify", SettingFragment.weChatNotifyAdmit(this) + "");
 	}
 
 	// 响应Action按钮的点击事件
