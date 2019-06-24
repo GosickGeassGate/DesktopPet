@@ -1,11 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.a95306.clock">
-    <application>
+
+    <application
+        android:allowBackup="true"
+        android:label="@string/app_name"
+        android:supportsRtl="true"
+        android:theme="@style/AppTheme">
         <activity android:name=".ClockActivity">
             <intent-filter>
-                <action android:name="com.yzh.alarm"></action>
+                <action android:name="com.example.a953060.clock"/>
             </intent-filter>
         </activity>
     </application>
+
 </manifest>

@@ -57,7 +57,7 @@ public class AlarmManagerUtil {
         } else if (flag == 2) {
             intervalMillis = 24 * 3600 * 1000 * 7;
         }
-        Intent intent = new Intent(ALARM_ACTION);
+        Intent intent = new Intent(context,LoongggAlarmReceiver.class);
         intent.putExtra("intervalMillis", intervalMillis);
         intent.putExtra("msg", tips);
         intent.putExtra("id", id);

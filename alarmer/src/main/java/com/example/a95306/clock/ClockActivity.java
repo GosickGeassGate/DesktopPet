@@ -6,7 +6,6 @@ import android.app.TimePickerDialog;
 import android.content.ContentValues;
 import android.content.Context;
 import android.content.DialogInterface;
-import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
@@ -35,6 +34,7 @@ public class ClockActivity extends AppCompatActivity {
     Map<Integer,Boolean> date_is_select;
     int repeat_count,ring;      //重复次数，提醒方式
     TextView tv_ring_value;
+    AlertDialog alertDialog;
     LinearLayout allLayout;
     String TAG;
     String ACTION_TAG="com.loonggg.alarm.clock";
@@ -231,6 +231,8 @@ public class ClockActivity extends AppCompatActivity {
         AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(mContext);
         dialogBuilder.setTitle("闹钟提示");
         dialogBuilder.setView(R.layout.tag_dialog);
+        EditText tag=(EditText)alertDialog.findViewById(R.id.tag_editText);
+        tag.setText(TAG);
         dialogBuilder.setNegativeButton("取消", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
@@ -239,12 +241,12 @@ public class ClockActivity extends AppCompatActivity {
         });
         dialogBuilder.setPositiveButton("确定", new DialogInterface.OnClickListener() {
             public void onClick(DialogInterface dialog, int which){
-                EditText tag=(EditText)findViewById(R.id.tag_editText);
+                EditText tag=(EditText)alertDialog.findViewById(R.id.tag_editText);
                 TAG=tag.getText().toString();
                 return;
             }
         });
-        AlertDialog alertDialog=dialogBuilder.create();
+        alertDialog=dialogBuilder.create();
         alertDialog.show();
     }
 
