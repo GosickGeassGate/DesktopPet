@@ -46,8 +46,34 @@ minSDK：24
 
 ------
 
+### 2019/6/24
+
+### version 2.0
+
+#### 更新说明：
+
+新增了BootCompletedBroadcastReceiver并进行相应的活动注册与权限申请，以响应开机广播BOOT_COMPLETED。
+
+#### 主要文件分布：
+
+java
+
+- Package name
+  - activity
+  - control
+  - model
+  - receiver
+    - BootCompletedBoardCast.java
+  - service
+  - util
+  - view
+
+#### 实现功能：
+
+开机自启动宠物的悬浮窗，但是一段时间后会闪退，原因暂时未明。
 
 ### 2019/6/5
+
 ### version 1.0（已整合2019/6/4）
 
 #### 更新说明：
