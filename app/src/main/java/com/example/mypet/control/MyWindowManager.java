@@ -38,6 +38,12 @@ public class MyWindowManager {
 	public static boolean msgWindowShow=false;
 	public static boolean petMenuShow=false;
 	private static boolean isPetShow=true;
+
+	private static WindowManager mWindowManager2;
+	private static PetWindowSmallView mPetWindowSmallView2;
+	private static boolean isPetShow2=true;
+
+
 	/**
 	 * 小窗口布局参数
 	 */
@@ -100,6 +106,42 @@ public class MyWindowManager {
 		Pet.name = SettingFragment.getName(MyApplication.getContext());	// 更新名字
 		Pet.sex = SettingFragment.getSex(MyApplication.getContext());	// 更新性别
 		PetControl.displayPetMessage("hi~我叫"+ Pet.name + "\n是一个" + (Pet.sex.equals("男") ? "可耐的男孩子~" : "漂酿的女孩子~"));
+	}
+
+
+	/**
+	 * 创建朋友宠物小悬浮窗
+	 *
+	 * @param context
+	 */
+	public static void createFriendPetSmallWindow(Context context) {
+		mWindowManager2 = getWindowManager(context);
+		if(mPetWindowSmallView2 == null){
+			mPetWindowSmallView2 = new PetWindowSmallView(context);
+			if(mSmallLayoutParams == null){
+				mSmallLayoutParams = new WindowManager.LayoutParams();
+				if (Build.VERSION.SDK_INT>=26) {//8.0新特性
+					mSmallLayoutParams.type= WindowManager.LayoutParams.TYPE_APPLICATION_OVERLAY;
+				}else{
+					mSmallLayoutParams.type= WindowManager.LayoutParams.TYPE_PHONE;
+				}
+
+				mSmallLayoutParams.format = PixelFormat.RGBA_8888;
+				mSmallLayoutParams.flags = WindowManager.LayoutParams.FLAG_NOT_TOUCH_MODAL
+						| WindowManager.LayoutParams.FLAG_NOT_FOCUSABLE;
+				mSmallLayoutParams.gravity = Gravity.LEFT | Gravity.TOP;
+				mSmallLayoutParams.width = mPetWindowSmallView.mVieWidth;
+				mSmallLayoutParams.height = mPetWindowSmallView.mViewHeight;
+				mSmallLayoutParams.x = screenWidth;
+				mSmallLayoutParams.y = screenHeight / 2;
+			}
+
+
+			mPetWindowSmallView2.setParams(mSmallLayoutParams);
+			mWindowManager2.addView(mPetWindowSmallView2, mSmallLayoutParams);
+		}
+		isPetShow2=true;
+		PetControl.displayPetMessage("hi~我叫"+ Pet.friendname + "\n是一个" + (Pet.friendsex.equals("男") ? "可耐的男孩子~" : "漂酿的女孩子~"));
 	}
 
 	public static void createPetMenu(final Context context){
@@ -222,6 +264,23 @@ public class MyWindowManager {
 		}
 		isPetShow=false;
 		PetControl.doUnbindPetFreeService();
+	}
+
+	/**
+	 * 移除朋友宠物小悬浮窗
+	 *
+	 * @param context
+	 */
+	public static void removeFriendPetSmallWindow(Context context) {
+//		if(msgWindowShow==true)removePetMsgWindow(context);
+//		if(petMenuShow==true)removePetMenu(context);
+		if(mPetWindowSmallView2 != null){
+			WindowManager windowManager = getWindowManager(context);
+			windowManager.removeView(mPetWindowSmallView2);
+			mPetWindowSmallView2 = null;
+		}
+		isPetShow2=false;
+//		PetControl.doUnbindPetFreeService();
 	}
 
 

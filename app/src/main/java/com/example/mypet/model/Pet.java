@@ -59,6 +59,19 @@ public class Pet {
      */
     public static int theme;
 
+    /**
+     * 朋友姓名
+     */
+    public static String friendname;
+    /**
+     * 朋友性别
+     */
+    public static String friendsex;
+    /**
+     * 类型
+     */
+    public static int friendtheme;
+
     static {
         name = SettingFragment.getName(MyApplication.getContext());
         sex = SettingFragment.getSex(MyApplication.getContext());

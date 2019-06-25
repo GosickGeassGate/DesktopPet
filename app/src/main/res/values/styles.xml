@@ -7,5 +7,11 @@
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
     </style>
+    <style name="AppToolbarTheme" parent="@style/Theme.AppCompat.Light.NoActionBar">
+        <!-- Provide decor theme colors -->
+        <item name="colorPrimary">@color/primaryGreen</item>
+        <item name="colorPrimaryDark">@color/darkGreen</item>
+        <item name="colorAccent">#ffff0000</item>
+    </style>
 
 </resources>

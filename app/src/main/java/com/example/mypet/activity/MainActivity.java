@@ -113,7 +113,8 @@ public class MainActivity extends AppCompatActivity{
 		bluetoothBtn.setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View v) {
-
+				Intent intent = new Intent(MainActivity.this, BlueToothActivity.class);
+				startActivity(intent);
 			}
 		});
 
