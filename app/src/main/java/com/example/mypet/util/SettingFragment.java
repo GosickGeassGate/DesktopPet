@@ -11,6 +11,9 @@ import android.preference.PreferenceManager;
 
 import com.example.mypet.R;
 
+/**
+ * Created by BiaYao on 2019/6/4.
+ */
 public class SettingFragment extends PreferenceFragment implements SharedPreferences.OnSharedPreferenceChangeListener {
     private EditTextPreference namePref;
     private ListPreference sexPref;
@@ -28,7 +31,6 @@ public class SettingFragment extends PreferenceFragment implements SharedPrefere
         sexPref = (ListPreference)findPreference("sex_key");
         typePref = (ListPreference)findPreference("type_key");
         autoStartPref = (CheckBoxPreference)findPreference("AutoStart_key");
-        alarmClockPref = (CheckBoxPreference)findPreference("AlarmClock_key");
         weChatNotifyPref = (CheckBoxPreference)findPreference("WeChatNotify_key");
     }
 
@@ -37,7 +39,7 @@ public class SettingFragment extends PreferenceFragment implements SharedPrefere
         super.onResume();
         // Setup the initial values
         SharedPreferences sharedPreferences = getPreferenceScreen().getSharedPreferences();
-        String[]keys = new String[]{"name_key", "sex_key", "type_key", "AutoStart_key", "AlarmClock_key", "WeChatNotify_key"};
+        String[]keys = new String[]{"name_key", "sex_key", "type_key", "AutoStart_key", "WeChatNotify_key"};
         for(String key: keys){
             setSummary(sharedPreferences, key);
         }
@@ -71,9 +73,6 @@ public class SettingFragment extends PreferenceFragment implements SharedPrefere
                 break;
             case "AutoStart_key":
                 autoStartPref.setSummary(sharedPreferences.getBoolean(key, true) ? "是" : "否");
-                break;
-            case "AlarmClock_key":
-                alarmClockPref.setSummary(sharedPreferences.getBoolean(key, true) ? "是" : "否");
                 break;
             case "WeChatNotify_key":
                 weChatNotifyPref.setSummary(sharedPreferences.getBoolean(key, true) ? "是" : "否");
@@ -114,12 +113,6 @@ public class SettingFragment extends PreferenceFragment implements SharedPrefere
     public static boolean autoStartAdmit(Context mContext){
         SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(mContext);
         return sharedPreferences.getBoolean("AutoStart_key", true);
-    }
-
-    // 是否开启闹钟提醒
-    public static boolean alarmClockAdmit(Context mContext){
-        SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(mContext);
-        return sharedPreferences.getBoolean("AlarmClock_key", true);
     }
 
     // 是否接收微信通知
