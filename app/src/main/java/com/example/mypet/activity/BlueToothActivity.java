@@ -122,6 +122,7 @@ public class BlueToothActivity extends AppCompatActivity {
     //互动对话框
     private AlertDialog alertDialog1 = null;
     private AlertDialog.Builder dialogBuilder1 = null;
+    boolean visited = false;
 
     // 响应Action按钮的点击事件
     @Override
@@ -220,6 +221,7 @@ public class BlueToothActivity extends AppCompatActivity {
 
                                 Log.d("visit", "拜访朋友");
                                 MyWindowManager.createFriendPetSmallWindow(MyApplication.getContext());
+                                visited = true;
 
                                 //根据获得的Type sex name创建新的宠物 进行显示
                                 final AlertDialog.Builder alertDialog1 = new AlertDialog.Builder(BlueToothActivity.this);
@@ -246,7 +248,7 @@ public class BlueToothActivity extends AppCompatActivity {
                                 /**/
 
                                 MyWindowManager.removeFriendPetSmallWindow(MyApplication.getContext());
-
+                                visited = true;
                                 final AlertDialog.Builder alertDialog2 = new AlertDialog.Builder(BlueToothActivity.this);
                                 alertDialog2.setTitle("收到召回消息提示");
                                 alertDialog2.setMessage("宠物" + Pet.friendname + "要走啦~");
@@ -263,6 +265,7 @@ public class BlueToothActivity extends AppCompatActivity {
                                     }
                                 }, 2000);
                                 break;
+
                             case "拜成":
                                 if(selfState == "LEAVING") {
                                     selfState = "ARRIVED";
@@ -343,7 +346,7 @@ public class BlueToothActivity extends AppCompatActivity {
         selfName = Pet.name;
         selfSex = Pet.sex;
         selfTheme = Pet.theme;
-        selfState = "Home";
+        selfState = "HOME";
     }
 
     @Override
@@ -358,6 +361,14 @@ public class BlueToothActivity extends AppCompatActivity {
 //        });
 
         BlueToothopen = (Switch) findViewById(R.id.blueswitch);
+        mBluetoothAdapter = BluetoothAdapter.getDefaultAdapter();
+        if(mBluetoothAdapter.isEnabled())
+        {
+            BlueToothopen.setChecked(true);
+            mChatService = new BlueToothConn(BlueToothActivity.this, mHandler);
+            mChatService.start();
+        }
+
         BlueToothopen.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -377,7 +388,9 @@ public class BlueToothActivity extends AppCompatActivity {
                 {
                     work();
                 }
-                Toast.makeText(context, "scanning to find others", Toast.LENGTH_SHORT).show();
+                if(mBluetoothAdapter.isEnabled())
+                    BlueToothopen.setChecked(true);
+                Toast.makeText(context, "搜索中......", Toast.LENGTH_SHORT).show();
                 findingPets();
             }
         });
@@ -388,9 +401,26 @@ public class BlueToothActivity extends AppCompatActivity {
                 {
                     work();
                 }*/
+                if(!mBluetoothAdapter.isEnabled() || mChatService ==null || mChatService != null && mChatService.getState()!=3)
+                    is_selected_device = false;
                 interract();
             }
         });
+
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                while(true) {
+                    if (visited) {
+                        if (!mBluetoothAdapter.isEnabled() || mChatService == null || mChatService != null && mChatService.getState() != 3) {
+                            MyWindowManager.removeFriendPetSmallWindow(MyApplication.getContext());
+                            visited = true;
+                        }
+                    }
+                }
+            }
+        }).start();
+
     }
     void turnOff() {
         this.Devices.clear();
@@ -426,6 +456,8 @@ public class BlueToothActivity extends AppCompatActivity {
             enableIntent.putExtra(BluetoothAdapter.EXTRA_DISCOVERABLE_DURATION, 300);
             startActivityForResult(enableIntent, REQUEST_ENABLE_BT);
             Toast.makeText(BlueToothActivity.this, "蓝牙设备已经打开！", Toast.LENGTH_SHORT).show();
+            if(mBluetoothAdapter.isEnabled())
+                BlueToothopen.setChecked(true);
             Log.d("process","1");
         }
         else{
@@ -443,6 +475,8 @@ public class BlueToothActivity extends AppCompatActivity {
     void findingPets() {
         Devices.clear();
         final ArrayList<String> devices_detected = new ArrayList<String>();
+        mBluetoothAdapter.startDiscovery();
+        AvailableDevice.setEnabled(true);
         //获得搜索权限  Broadcast信息获取 定义结果显示 开始搜索
         Log.d("searching","start");
         // 开启搜索蓝牙的权限
@@ -467,7 +501,7 @@ public class BlueToothActivity extends AppCompatActivity {
                             .setMovementMethod(LinkMovementMethod.getInstance());       // Make the link clickable. Needs to be called after show(), in order to generate hyperlinks
                     break;
                 case PackageManager.PERMISSION_GRANTED:
-                    Toast.makeText(this.context,"已有搜索权限",Toast.LENGTH_SHORT).show();
+                    //Toast.makeText(this.context,"已有搜索权限",Toast.LENGTH_SHORT).show();
                     break;
             }
         }
@@ -504,7 +538,10 @@ public class BlueToothActivity extends AppCompatActivity {
                 //测试情况:在该设备没有此宠物APP或者没有打开蓝牙的时候显示连接超时
                 //Testing Point:找到另一部安卓机器之后进行连接测试
                 //testing:点击设备并且进行了连接
+                //Toast.makeText(BlueToothActivity.this,"连接中......",Toast.LENGTH_LONG).show();
                 mBluetoothAdapter.cancelDiscovery();
+                Devices.clear();
+                AvailableDevice.setAdapter(Devices);
                 AvailableDevice.setEnabled(false);
                 TextView textView = (TextView) view;
                 String text_tmp = textView.getText().toString();
@@ -521,6 +558,16 @@ public class BlueToothActivity extends AppCompatActivity {
                 String address = addresses[1];
 
                 BluetoothDevice device = mBluetoothAdapter.getRemoteDevice(address);
+                if(!mBluetoothAdapter.isEnabled())
+                {
+                    Toast.makeText(BlueToothActivity.this,"蓝牙关闭了",Toast.LENGTH_LONG).show();
+                    return;
+                }
+                if(mBluetoothAdapter.isEnabled()&&mChatService==null)
+                {
+                    mChatService = new BlueToothConn(BlueToothActivity.this, mHandler);
+                    mChatService.start();
+                }
                 // Attempt to connect to the device
                 mChatService.connect(device, true);
                 timeOutHandler.postDelayed(timeOutToast, 10000);
@@ -568,18 +615,22 @@ public class BlueToothActivity extends AppCompatActivity {
                         public void onClick(DialogInterface dialog, int which) {
                             Toast.makeText(context, "探望", Toast.LENGTH_SHORT).show();
                             //testing
-                            selfState="HOME";
+                            //selfState="HOME";
                             String msg= "拜访";
                             if(selfState == "HOME") {
                                 //还未加载一个loading界面
                                 //petState = Constants.LEAVING;
                                 selfState = "LEAVING";
-                                Toast.makeText(BlueToothActivity.this,"去朋友家玩！",Toast.LENGTH_SHORT).show();
+                                Toast.makeText(BlueToothActivity.this,"到达朋友家",Toast.LENGTH_SHORT).show();
                                 // 下面这个函数将会把消息发到另外一个蓝牙设备中, 如果需要可以在执行函数前对字符串进行处理
                                 // 这里需要读取自己宠物名字
                                 //String MyPetName = sharedPreferences.getString("currentName", "");
                                 //String MyPetSkin = sharedPreferences.getString("current", "");
                                 mChatService.write((msg + selfTheme+" && "+selfSex + " && " + selfName).getBytes());
+                            }
+                            else
+                            {
+                                Toast.makeText(BlueToothActivity.this,"您的宠物不在家",Toast.LENGTH_LONG).show();
                             }
                         }
                     })
@@ -588,8 +639,8 @@ public class BlueToothActivity extends AppCompatActivity {
                         public void onClick(DialogInterface dialog, int which) {
                                     /*发起方取消互动请求*/
                             //testing
-                            selfState = "GONE";
-                            if(selfState == "GONE") {
+                            //selfState = "GONE";
+                            if(selfState == "ARRIVED") {
                                 selfState = "HOME";
                                 // 下面这个函数将会把消息发到另外一个蓝牙设备中, 如果需要可以在执行函数前对字符串进行处理
                                 // 这里需要读取自己宠物的名字
@@ -599,6 +650,10 @@ public class BlueToothActivity extends AppCompatActivity {
                                 Toast.makeText(BlueToothActivity.this,"从朋友家回来",Toast.LENGTH_SHORT).show();
                                 mChatService.write((msg + selfTheme+" && "+selfSex + " && " + selfName).getBytes());
                             }
+                            else
+                            {
+                                Toast.makeText(BlueToothActivity.this,"您的宠物没有外出",Toast.LENGTH_LONG).show();
+                            }
                             Toast.makeText(context, "取消互动", Toast.LENGTH_SHORT).show();
                         }
                     })
@@ -606,7 +661,7 @@ public class BlueToothActivity extends AppCompatActivity {
                     Log.d("turning to","here");
         }
         Log.d("turning to","interacting here");
-        Toast.makeText(context, "interacting", Toast.LENGTH_SHORT).show();
+        //Toast.makeText(context, "interacting", Toast.LENGTH_SHORT).show();
     }
 
 
@@ -621,6 +676,7 @@ public class BlueToothActivity extends AppCompatActivity {
                 case REQUEST_ENABLE_BT: // 开启蓝牙
                     mChatService = new BlueToothConn(this, mHandler);
                     mChatService.start();
+                    BlueToothopen.setChecked(true);
                     Devices.clear();
                     mBluetoothAdapter.startDiscovery();
                     break;

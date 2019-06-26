@@ -26,11 +26,6 @@
             android:summary="是"
             android:defaultValue="true" />
         <CheckBoxPreference
-            android:key="AlarmClock_key"
-            android:title="是否开启闹钟提醒"
-            android:summary="是"
-            android:defaultValue="true" />
-        <CheckBoxPreference
             android:key="WeChatNotify_key"
             android:title="是否接收微信通知"
             android:summary="是"

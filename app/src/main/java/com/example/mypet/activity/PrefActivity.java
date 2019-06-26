@@ -12,6 +12,9 @@ import android.widget.Toast;
 import com.example.mypet.R;
 import com.example.mypet.util.SettingFragment;
 
+/**
+ * Created by BiaYao on 2019/6/4.
+ */
 public class PrefActivity extends AppCompatActivity {
 
 	@Override
