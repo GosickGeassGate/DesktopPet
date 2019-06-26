@@ -1,6 +1,0 @@
-<application>
-  <component name="HttpConfigurable">
-    <option name="USE_PROXY_PAC" value="true" />
-    <option name="PROXY_HOST" value="mirrors.neusoft.edu.cn" />
-  </component>
-</application>
