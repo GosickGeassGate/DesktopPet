@@ -1,0 +1,121 @@
+package com.example.mypet.service;
+
+import android.annotation.SuppressLint;
+import android.content.Intent;
+import android.content.SharedPreferences;
+import android.os.Environment;
+import android.os.Handler;
+import android.os.Looper;
+import android.os.Message;
+import android.service.notification.NotificationListenerService;
+import android.service.notification.StatusBarNotification;
+import android.util.Log;
+import android.widget.Toast;
+
+import com.example.mypet.control.MyWindowManager;
+import com.example.mypet.control.PetControl;
+
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.OutputStreamWriter;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
+@SuppressLint("OverrideAbstract")
+public class MyNotifiService extends NotificationListenerService {
+
+    public static boolean isRunning=false;
+    private BufferedWriter bw;
+    private SimpleDateFormat sdf;
+    private static final String TAG = "通知栏消息 ";
+    private MyHandler handler = new MyHandler();
+    private String nMessage;
+    private String data;
+    Handler mHandler = new Handler(Looper.getMainLooper()) {
+        @Override
+        public void handleMessage(Message msg) {
+            String msgString = (String) msg.obj;
+            // 在后台运行时能发消息到主线程
+//            Toast.makeText(getApplicationContext(), msgString, Toast.LENGTH_LONG).show();
+        }
+    };
+
+    @Override
+    public int onStartCommand(Intent intent, int flags, int startId) {
+        Log.i(TAG, "Service is started" + "-----");
+        data = intent.getStringExtra("data");
+        return super.onStartCommand(intent, flags, startId);
+    }
+
+    @Override
+    public void onNotificationPosted(StatusBarNotification sbn) {
+        if (!isRunning) {
+            return;
+        }
+        try {
+            //有些通知不能解析出TEXT内容，这里做个信息能判断
+            if (sbn.getNotification().tickerText != null) {
+                SharedPreferences sp = getSharedPreferences("msg", MODE_PRIVATE);
+                nMessage = sbn.getNotification().tickerText.toString();
+                Log.d(TAG, "Get Message" + "-----" + nMessage);
+                sp.edit().putString("getMsg", nMessage).apply();
+                if(MyWindowManager.isPetWindowShowing()){
+                    PetControl.displayPetMessage(""+ nMessage);
+                }
+                Message obtain = Message.obtain();
+                obtain.obj = nMessage;
+                mHandler.sendMessage(obtain);
+//                init();
+            }
+        } catch (Exception e) {
+            Toast.makeText(MyNotifiService.this, "不可解析的通知", Toast.LENGTH_SHORT).show();
+        }
+
+    }
+
+    private void writeData(String str) {
+        try {
+            bw.newLine();
+            bw.write(str);
+            bw.newLine();
+            bw.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    private void init() {
+        sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        try {
+            FileOutputStream fos = new FileOutputStream(newFile(), true);
+            OutputStreamWriter osw = new OutputStreamWriter(fos);
+            bw = new BufferedWriter(osw);
+        } catch (IOException e) {
+            Log.d(TAG, "BufferedWriter Initialization error");
+        }
+        Log.d(TAG, "Initialization Successful");
+    }
+
+    private File newFile() {
+        File fileDir = new File(Environment.getExternalStorageDirectory().getPath() + File.separator + "ANotification");
+        fileDir.mkdir();
+        String basePath = Environment.getExternalStorageDirectory() + File.separator + "ANotification" + File.separator + "record.txt";
+        return new File(basePath);
+
+    }
+
+
+
+    class MyHandler extends Handler {
+        @Override
+        public void handleMessage(Message msg) {
+            switch (msg.what) {
+                case 1:
+//                    Toast.makeText(MyService.this,"Bingo",Toast.LENGTH_SHORT).show();
+            }
+        }
+
+    }
+}

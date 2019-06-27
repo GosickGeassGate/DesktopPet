@@ -3,13 +3,16 @@ package com.example.mypet.activity;
 import android.animation.Animator;
 import android.animation.AnimatorSet;
 import android.animation.ObjectAnimator;
+import android.content.Context;
 import android.content.Intent;
 import android.graphics.drawable.Drawable;
 import android.os.Build;
 import android.os.Handler;
 import android.provider.Settings;
+import android.support.v4.app.NotificationManagerCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.view.animation.AccelerateInterpolator;
 import android.widget.ImageButton;
@@ -18,6 +21,7 @@ import android.widget.Toast;
 import com.example.a95306.clock.AlarmEntrance;
 import com.example.mypet.R;
 import com.example.mypet.control.MyWindowManager;
+import com.example.mypet.service.MyNotifiService;
 
 
 /**
@@ -38,9 +42,11 @@ public class MainActivity extends AppCompatActivity{
 	private ImageButton aboutBtn;
 
 	private boolean petBtnState = false;
+	private boolean weChatState = false;
 
 	private Handler handler = new Handler();
 
+	private boolean notificationIsOpen=false;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -100,6 +106,30 @@ public class MainActivity extends AppCompatActivity{
 		weChatBtn.setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View v) {
+				if (!weChatState) {   // 是否打开，若打开了，检查权限
+					if (checkNotificationPermission(MainActivity.this)) {  // 权限是否申请，没申请则申请，否则开启监听服务。
+						startBtnOnAnim(weChatBtn, R.drawable.ic_message_per100_60dp, new Runnable() {
+							@Override
+							public void run() {
+								MyNotifiService.isRunning=true;
+								startService(new Intent(MainActivity.this, MyNotifiService.class));
+							}
+						});
+						weChatState  = true;
+					}
+					else {  // 没有权限的情况，这时申请完权限后应该直接返回。
+						requestNotificationPermission();
+					}
+				}
+				else{
+					startBtnOffAnim(weChatBtn, R.drawable.src_btn_wechat, new Runnable() {
+						@Override
+						public void run() {
+							MyNotifiService.isRunning=false;
+						}
+					});
+					weChatState = false;
+				}
 			}
 		});
 
@@ -253,6 +283,27 @@ public class MainActivity extends AppCompatActivity{
 		intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
 		Toast.makeText(this, "请打开悬浮窗权限", Toast.LENGTH_SHORT).show();
 		startActivityForResult(intent, OVERLAY_PERMISSION_REQ_CODE);
+	}
+
+	private boolean checkNotificationPermission(Context context){
+		if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR2) {
+			if (!NotificationManagerCompat.getEnabledListenerPackages(this).contains(getPackageName())) {        //ask for permission
+				notificationIsOpen = false;
+				return false;
+			}
+			notificationIsOpen = true;
+			return true;
+		}
+		Log.d("测试", "进不去啊老铁");
+		return false;
+	}
+
+	private void requestNotificationPermission(){
+		if(!notificationIsOpen){
+			Toast.makeText(this, "请打开通知使用权限", Toast.LENGTH_SHORT).show();
+			Intent intent = new Intent(Settings.ACTION_NOTIFICATION_LISTENER_SETTINGS);
+			startActivityForResult(intent,1);
+		}
 	}
 
 	@Override
