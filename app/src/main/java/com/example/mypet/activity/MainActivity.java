@@ -15,6 +15,7 @@ import android.view.animation.AccelerateInterpolator;
 import android.widget.ImageButton;
 import android.widget.Toast;
 
+import com.example.a95306.clock.AlarmEntrance;
 import com.example.mypet.R;
 import com.example.mypet.control.MyWindowManager;
 
@@ -99,14 +100,15 @@ public class MainActivity extends AppCompatActivity{
 		weChatBtn.setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View v) {
-
 			}
 		});
 
 		alarmBtn.setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View v) {
-
+				AlarmEntrance alarmEntrance=new AlarmEntrance();
+				Intent intent=alarmEntrance.startAlarm(MainActivity.this);
+				startActivity(intent);
 			}
 		});
 
