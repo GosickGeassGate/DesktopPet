@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/activity_clock"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:showDividers="middle|end|beginning|none"
+    android:divider="@drawable/line"
+    tools:context="com.example.a95306.clock.ClockActivity">
+
+
+    <include layout="@layout/timeshow">
+    </include>
+
+    <include layout="@layout/date">
+    </include>
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/remind_way"
+        android:padding="15dp">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="15sp"
+            android:text="提醒方式"
+            android:gravity="left"/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:id="@+id/hint_arrow"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:background="@drawable/personal_item_arrow"/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/hint_way"
+            android:layout_toLeftOf="@id/hint_arrow"
+            android:paddingRight="10dp"
+            android:text="震动"/>
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="15dp">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/open_alarm"
+            android:layout_alignParentLeft="true"
+            android:text="开启闹钟"
+            android:textSize="15dp"/>
+
+        <Switch
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:id="@+id/alarm_switch"
+            android:layout_alignBaseline="@+id/open_alarm"/>
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/tag"
+        android:padding="15dp">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="15dp"
+            android:text="标签"
+            android:layout_alignParentLeft="true"
+            />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/personal_item_arrow"
+            android:layout_alignParentRight="true"/>
+
+    </RelativeLayout>
+
+
+
+</LinearLayout>
