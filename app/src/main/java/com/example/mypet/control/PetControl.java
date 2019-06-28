@@ -8,7 +8,10 @@ import android.content.ServiceConnection;
 import android.os.IBinder;
 import android.util.Log;
 
+import com.example.a95306.clock.AlarmEntrance;
 import com.example.mypet.R;
+import com.example.mypet.activity.BlueToothActivity;
+import com.example.mypet.activity.MainActivity;
 import com.example.mypet.util.MyApplication;
 import com.example.mypet.activity.PrefActivity;
 import com.example.mypet.model.Pet;
@@ -235,10 +238,19 @@ public class PetControl {
 		}
 	}
 	public static void alarmBtnClick(){
+		Context context = MyApplication.getContext();
+		AlarmEntrance alarmEntrance=new AlarmEntrance();
+		Intent intent=alarmEntrance.startAlarm(context);
+		intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+		context.startActivity(intent);
 		MyWindowManager.removePetMenu(MyApplication.getContext());
 	}
 
 	public static void bluetoothBtnClick(){
+		Context context = MyApplication.getContext();
+		Intent intent = new Intent(context, BlueToothActivity.class);
+		intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+		context.startActivity(intent);
 		MyWindowManager.removePetMenu(MyApplication.getContext());
 	}
 
