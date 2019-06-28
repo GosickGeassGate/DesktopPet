@@ -31,7 +31,6 @@ public class SettingFragment extends PreferenceFragment implements SharedPrefere
         sexPref = (ListPreference)findPreference("sex_key");
         typePref = (ListPreference)findPreference("type_key");
         autoStartPref = (CheckBoxPreference)findPreference("AutoStart_key");
-        weChatNotifyPref = (CheckBoxPreference)findPreference("WeChatNotify_key");
     }
 
     @Override
@@ -39,7 +38,7 @@ public class SettingFragment extends PreferenceFragment implements SharedPrefere
         super.onResume();
         // Setup the initial values
         SharedPreferences sharedPreferences = getPreferenceScreen().getSharedPreferences();
-        String[]keys = new String[]{"name_key", "sex_key", "type_key", "AutoStart_key", "WeChatNotify_key"};
+        String[]keys = new String[]{"name_key", "sex_key", "type_key", "AutoStart_key"};
         for(String key: keys){
             setSummary(sharedPreferences, key);
         }
@@ -73,9 +72,6 @@ public class SettingFragment extends PreferenceFragment implements SharedPrefere
                 break;
             case "AutoStart_key":
                 autoStartPref.setSummary(sharedPreferences.getBoolean(key, true) ? "是" : "否");
-                break;
-            case "WeChatNotify_key":
-                weChatNotifyPref.setSummary(sharedPreferences.getBoolean(key, true) ? "是" : "否");
                 break;
             default:
                 break;
@@ -115,9 +111,4 @@ public class SettingFragment extends PreferenceFragment implements SharedPrefere
         return sharedPreferences.getBoolean("AutoStart_key", true);
     }
 
-    // 是否接收微信通知
-    public static boolean weChatNotifyAdmit(Context mContext){
-        SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(mContext);
-        return sharedPreferences.getBoolean("WeChatNotify_key", true);
-    }
 }
