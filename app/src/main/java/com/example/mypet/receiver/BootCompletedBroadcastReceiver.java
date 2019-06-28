@@ -17,9 +17,9 @@ public class BootCompletedBroadcastReceiver extends BroadcastReceiver {
 
     @Override
     public void onReceive(Context context, Intent intent){
-        Toast.makeText(context, "自启动成功", Toast.LENGTH_LONG).show();
         // 收到BOOT_COMPLETED而且设置允许自启动
         if (ACTION.equals(intent.getAction()) && SettingFragment.autoStartAdmit(MyApplication.getContext())) {
+            Toast.makeText(context, "自启动成功", Toast.LENGTH_LONG).show();
             MyWindowManager.createPetSmallWindow(MyApplication.getContext());
         }
     }
