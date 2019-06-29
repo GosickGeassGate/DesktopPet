@@ -15,7 +15,7 @@
         <activity
             android:name=".ClockAlarmActivity"
             android:theme="@android:style/Theme.Translucent.NoTitleBar"
-            ></activity>
+            android:launchMode="singleTop"/>
     </application>
 
 </manifest>
