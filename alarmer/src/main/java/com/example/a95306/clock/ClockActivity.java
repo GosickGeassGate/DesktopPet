@@ -259,11 +259,13 @@ public class ClockActivity extends AppCompatActivity {
             ring=cursor.getInt(cursor.getColumnIndex("ring"));
             String work_day= cursor.getString(cursor.getColumnIndex("work_day"));
             TAG=cursor.getString(cursor.getColumnIndex("TAG"));
-            String[] days=work_day.split(",");
-            for(int i=0;i<days.length;i++){
-                repeat_count++;
-                int index=Integer.parseInt(days[i]);
-                date_is_select.put(date_id[index],true);
+            if (work_day!=null){
+                String[] days=work_day.split(",");
+                for(int i=0;i<days.length;i++){
+                    repeat_count++;
+                    int index=Integer.parseInt(days[i]);
+                    date_is_select.put(date_id[index],true);
+                }
             }
             setReaptHint();
         }
