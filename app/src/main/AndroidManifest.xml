@@ -1,69 +1,85 @@
 <?xml version="1.0" encoding="utf-8"?>
-	<manifest xmlns:android="http://schemas.android.com/apk/res/android"
-	package="com.example.mypet">
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.example.mypet">
 
-	<uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW" />
-	<uses-permission android:name="android.permission.SYSTEM_OVERLAY_WINDOW" />
-	<uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
-	<uses-permission android:name="android.permission.BLUETOOTH_ADMIN" />
-	<uses-permission android:name="android.permission.BLUETOOTH" />
-	<uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
-	<uses-permission android:name="android.permission.READ_PHONE_STATE" />
-	<uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
-	<uses-permission android:name="android.permission.INTERNET" />
-	<uses-permission android:name="android.permission.BLUETOOTH" />
-	<uses-permission android:name="android.permission.BLUETOOTH_ADMIN" />
-	<uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
-	<uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+    <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW" />
+    <uses-permission android:name="android.permission.SYSTEM_OVERLAY_WINDOW" />
+    <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
+    <uses-permission android:name="android.permission.BLUETOOTH_ADMIN" />
+    <uses-permission android:name="android.permission.BLUETOOTH" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.READ_PHONE_STATE" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.BLUETOOTH" />
+    <uses-permission android:name="android.permission.BLUETOOTH_ADMIN" />
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
 
-	<application
-		android:allowBackup="true"
-		android:icon="@mipmap/ic_launcher"
-		android:label="@string/app_name"
-		android:roundIcon="@mipmap/ic_launcher_round"
-		android:supportsRtl="true"
-		android:theme="@style/AppTheme"
-		android:name=".util.MyApplication">
+    <application
+        android:name=".util.MyApplication"
+        android:allowBackup="true"
+        android:icon="@mipmap/ic_launcher"
+        android:label="@string/app_name"
+        android:roundIcon="@mipmap/ic_launcher_round"
+        android:supportsRtl="true"
+        android:theme="@style/AppTheme">
+        <meta-data
+            android:name="com.google.android.actions"
+            android:resource="@xml/accessibility_service_config" />
 
-		<activity android:name=".activity.MainActivity"
-			android:launchMode="singleTask">
+        <activity
+            android:name=".activity.MainActivity"
+            android:launchMode="singleTask"></activity>
+        <activity
+            android:name=".activity.AboutActivity"
+            android:launchMode="singleTop" />
+        <activity
+            android:name=".activity.BlueToothActivity"
+            android:launchMode="singleTop" />
+        <activity
+            android:name=".activity.PrefActivity"
+            android:launchMode="singleTop" />
+        <activity
+            android:name=".activity.WelcomeActivity"
+            android:launchMode="singleTop">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
 
-		</activity>
-		<activity android:name=".activity.AboutActivity"
-			android:launchMode="singleTop"/>
-		<activity android:name=".activity.BlueToothActivity"
-			android:launchMode="singleTop"/>
-		<activity android:name=".activity.PrefActivity"
-			android:launchMode="singleTop"/>
-		<activity android:name=".activity.WelcomeActivity"
-			android:launchMode="singleTop">
-			<intent-filter>
-				<action android:name="android.intent.action.MAIN"/>
-				<category android:name="android.intent.category.LAUNCHER"/>
-			</intent-filter>
-		</activity>
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
 
-		<service android:name=".service.PetFreeService"
-			android:enabled="true"
-			android:exported="true" />
+        <service
+            android:name=".service.PetFreeService"
+            android:enabled="true"
+            android:exported="true" />
+        <service
+            android:name=".service.MyNotifiService"
+            android:label="通知监控"
+            android:permission="android.permission.BIND_NOTIFICATION_LISTENER_SERVICE"
+            android:priority="1000">
+            <intent-filter>
+                <action android:name="android.service.notification.NotificationListenerService" />
+            </intent-filter>
+        </service>
+        <service
+            android:name=".service.WeListenService"
+            android:permission="android.permission.BIND_ACCESSIBILITY_SERVICE">
+            <intent-filter>
+                <action android:name="android.accessibilityservice.AccessibilityService" />
+            </intent-filter>
 
-		<service
-			android:name="com.example.mypet.service.MyNotifiService"
-			android:priority="1000"
-			android:label="通知监控"
-			android:permission="android.permission.BIND_NOTIFICATION_LISTENER_SERVICE">
-			<intent-filter>
-				<action      android:name="android.service.notification.NotificationListenerService" />
-			</intent-filter>
-		</service>
+            <meta-data
+                android:name="android.accessibilityservice"
+                android:resource="@xml/accessibility_service_config" />
+        </service>
 
-		<receiver android:name=".receiver.BootCompletedBroadcastReceiver">
-			<intent-filter>
-				<action android:name="android.intent.action.BOOT_COMPLETED" />
-			</intent-filter>
-		</receiver>
-
-	</application>
-
+        <receiver android:name=".receiver.BootCompletedBroadcastReceiver">
+            <intent-filter>
+                <action android:name="android.intent.action.BOOT_COMPLETED" />
+            </intent-filter>
+        </receiver>
+    </application>
 
 </manifest>

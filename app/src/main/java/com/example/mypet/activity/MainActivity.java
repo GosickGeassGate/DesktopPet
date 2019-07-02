@@ -12,6 +12,7 @@ import android.provider.Settings;
 import android.support.v4.app.NotificationManagerCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
 import android.view.animation.AccelerateInterpolator;
@@ -22,6 +23,7 @@ import com.example.a95306.clock.AlarmEntrance;
 import com.example.mypet.R;
 import com.example.mypet.control.MyWindowManager;
 import com.example.mypet.service.MyNotifiService;
+import com.example.mypet.service.WeListenService;
 
 
 /**
@@ -47,6 +49,7 @@ public class MainActivity extends AppCompatActivity{
 	private Handler handler = new Handler();
 
 	private boolean notificationIsOpen=false;
+	private boolean accessibilityIsOpen=false;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -107,25 +110,26 @@ public class MainActivity extends AppCompatActivity{
 			@Override
 			public void onClick(View v) {
 				if (!weChatState) {   // 是否打开，若打开了，检查权限
-					if (checkNotificationPermission(MainActivity.this)) {  // 权限是否申请，没申请则申请，否则开启监听服务。
+					if (checkAccessibilityPermission(MainActivity.this)) {  // 权限是否申请，没申请则申请，否则开启监听服务。
 						startBtnOnAnim(weChatBtn, R.drawable.ic_message_per100_60dp, new Runnable() {
 							@Override
 							public void run() {
-								MyNotifiService.isRunning=true;
-								startService(new Intent(MainActivity.this, MyNotifiService.class));
+								WeListenService.isRunning=true;
+								startService(new Intent(MainActivity.this, WeListenService.class));
 							}
 						});
 						weChatState  = true;
 					}
 					else {  // 没有权限的情况，这时申请完权限后应该直接返回。
-						requestNotificationPermission();
+//						requestNotificationPermission();
+						requestAccessibilityPermission();
 					}
 				}
 				else{
 					startBtnOffAnim(weChatBtn, R.drawable.src_btn_wechat, new Runnable() {
 						@Override
 						public void run() {
-							MyNotifiService.isRunning=false;
+							WeListenService.isRunning=false;
 						}
 					});
 					weChatState = false;
@@ -320,6 +324,42 @@ public class MainActivity extends AppCompatActivity{
 				break;
 			default:
 				break;
+		}
+	}
+
+	private boolean checkAccessibilityPermission(Context context){
+		int accessibilityEnable = 0;
+		String TAG="检查权限";
+		String serviceName = context.getPackageName() + "/" +  context.getPackageName() + ".service.WeListenService";
+		try {
+			accessibilityEnable = Settings.Secure.getInt(context.getContentResolver(), Settings.Secure.ACCESSIBILITY_ENABLED, 0);
+		} catch (Exception e) {
+			Log.d(TAG,"get accessibility enable failed, the err:" + e.getMessage());
+		}
+		if (1 == accessibilityEnable) {
+			TextUtils.SimpleStringSplitter mStringColonSplitter = new TextUtils.SimpleStringSplitter(':');
+			String settingValue = Settings.Secure.getString(context.getContentResolver(), Settings.Secure.ENABLED_ACCESSIBILITY_SERVICES);
+			if (null != settingValue) {
+				mStringColonSplitter.setString(settingValue);
+				while (mStringColonSplitter.hasNext()) {
+					String accessibilityService = mStringColonSplitter.next();
+					if (accessibilityService.equalsIgnoreCase(serviceName)) {
+						Log.d(TAG,"accessibility service:" + serviceName + " is on.");
+						return true;
+					}
+				}
+			}
+		} else {
+			Log.d(TAG,"accessibility service disable.");
+		}
+		return false;
+	}
+
+	private void requestAccessibilityPermission(){
+		if(!accessibilityIsOpen){
+			Toast.makeText(this, "请打开ListenMessage服务", Toast.LENGTH_SHORT).show();
+			Intent intent = new Intent(Settings.ACTION_ACCESSIBILITY_SETTINGS);
+			startActivityForResult(intent,1);
 		}
 	}
 
